@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -9,9 +11,10 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
     webPreferences: {
+      // contextIsolation: true, // デフォルト
+      // nodeIntegration: false, // デフォルト
+      webSecurity: !IS_DEV, // 開発時のみwebSecurityを無効にする
       preload: path.join(__dirname, 'preload.js'),
     },
   });
@@ -24,7 +27,7 @@ const createWindow = () => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools(); //必要なときだけctrl+shift+iで開けばいい
 };
 
 // This method will be called when Electron has finished
