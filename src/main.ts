@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
@@ -7,6 +7,7 @@ const IS_DEV = process.env.NODE_ENV === 'development';
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
 
 const createWindow = () => {
   // Create the browser window.
@@ -54,3 +55,7 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+ipcMain.handle("hello", (_e: Electron.IpcMainInvokeEvent, ...args: string[]) => {
+  console.log("catched: ", args);
+  return { message: "hello from main" };
+})

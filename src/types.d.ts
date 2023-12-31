@@ -3,3 +3,10 @@
 // whether you're running in development or production).
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
+
+
+interface Window {
+  api: {
+    hello: () => Promise<{ message: string }>;
+  }
+}

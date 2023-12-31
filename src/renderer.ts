@@ -28,4 +28,12 @@
 
 import './index.css';
 
+window.addEventListener("DOMContentLoaded", () => {
+  const helloButton = document.getElementById("hello-button");
+  helloButton?.addEventListener("click", () => {
+    console.log("click hello");
+    window.api.hello();
+  });
+});
+
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
